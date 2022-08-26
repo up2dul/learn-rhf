@@ -2,11 +2,12 @@
 const daisyUI = require('daisyui');
 
 module.exports = {
-  content: [
-    './src/**/*.{js,jsx,ts,tsx}',
-  ],
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
-    extend: {},
+    extend: {}
   },
-  plugins: [daisyUI]
+  plugins: [daisyUI],
+  daisyUI: {
+    themes: ['synthwave']
+  }
 }
