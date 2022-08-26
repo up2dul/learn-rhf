@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @layer components {
-  input { @apply input input-bordered w-full; }
-  button { @apply btn btn-primary; }
+  input[type="text"], 
+  input[type="password"] { @apply input input-bordered w-full focus:outline-primary; }
+  input[type="checkbox"] { @apply checkbox checkbox-accent checkbox-sm; } 
 }
