@@ -7,9 +7,12 @@ export const inputSchema = Yup.object({
     .email('Please enter a valid Email address!')
     .required('Enter your Email!'),
   age: Yup.number()
-    .required('Enter your Age!')
-    .positive()
-    .integer(),
+    .required()
+    .typeError('Enter your age!')
+    .positive('Age must be greater than zero')
+    .integer()
+    .min(18)
+    .max(27),
   password: Yup.string()
     .min(4, 'Min. 4 characters')
     .max(18, 'Max. 18 characters')
