@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { InputGroup } from './input-group';
 import { inputSchema } from '../utils/schema';
+import { inputList } from '../utils/input-list';
 
 let count = 0;
 
@@ -14,54 +15,28 @@ export function Form() {
   const onSubmit = (data) => {
     console.log('submitted!');
     console.table(data);
-  };
+    reset();
+  }
+
+  const onError = (errors) => console.table(errors);
 
   console.log('rendered:', ++count);
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit, onError)}
       className='mt-7 p-10 flex flex-col gap-3 border border-secondary rounded-md'
     >
-      <InputGroup 
-        label='Full name'
-        placeholder='e.g. Thomas bujang'
-        register={register('fullName')}
-        errMessage={errors.fullName?.message}
-      />
-      <InputGroup 
-        label='Email'
-        placeholder='e.g. thomas@gmail.com'
-        register={register('email')}
-        errMessage={errors.email?.message}
-      />
-      <InputGroup 
-        label='Age'
-        placeholder='e.g. 30'
-        register={register('age')}
-        errMessage={errors.age?.message}
-      />
-      <InputGroup 
-        label='Password'
-        type='password'
-        placeholder='****'
-        register={register('password')}
-        errMessage={errors.password?.message}
-      />
-      <InputGroup 
-        label='Confirm Password'
-        type='password'
-        placeholder='****'
-        register={register('confirmPassword')}
-        errMessage={errors.confirmPassword?.message}
-      />
-      <InputGroup 
-        label='Subscribe to our newsletter'
-        type='checkbox'
-        register={register('subscribe')}
-        errMessage={errors.subscribe?.message}
-      />
-      <button 
+      {
+        inputList.map(({ name, ...props }) => (
+          <InputGroup
+            {...props}
+            register={register(name)}
+            errMessage={errors[name]?.message}
+          />
+        ))
+      }
+      <button
         type='submit'
         disabled={!isValid}
         className='mt-5 btn btn-primary'
