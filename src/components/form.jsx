@@ -6,8 +6,9 @@ import { inputSchema } from '../utils/schema';
 let count = 0;
 
 export function Form() {
-  const { register, handleSubmit, formState: { errors } } = useForm({
-    resolver: yupResolver(inputSchema)
+  const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm({
+    resolver: yupResolver(inputSchema),
+    mode: 'onChange'
   });
 
   const onSubmit = (data) => {
@@ -62,6 +63,7 @@ export function Form() {
       />
       <button 
         type='submit'
+        disabled={!isValid}
         className='mt-5 btn btn-primary'
       >
         Register now!
